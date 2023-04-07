@@ -23,11 +23,11 @@ Default 1920x1080 displayd in a 1/4 size window
 
 
 
-display = jetson.utils.videoOutput("myvideo.mp4") 
+display = jetson.utils.videoOutput("video.mp4") 
 
 camera = jetson.utils.videoSource("csi://0") 
 
-while True:
+while display.IsStreaming():
     
     img = camera.Capture()
     detections = net.Detect(img)
