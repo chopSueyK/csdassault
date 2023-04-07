@@ -19,8 +19,6 @@ camera = jetson.utils.videoSource("csi://0")
 while True:
     start = time.time()
     print("hello")
-    
-    print(end - start)
     person = []
     img = camera.Capture()
     detections = net.Detect(img)
