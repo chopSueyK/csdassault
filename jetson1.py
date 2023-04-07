@@ -14,7 +14,8 @@ import time
 
 net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
 display = jetson.utils.glDisplay()
-camera = jetson.utils.videoSource("csi://0") 
+#camera = jetson.utils.videoSource("csi://0") 
+camera = jetson.utils.videoSource("footage.mp4")
 
 while True:
     start = time.time()
@@ -23,14 +24,13 @@ while True:
     img = camera.Capture()
     detections = net.Detect(img)
     end = time.time()
+    duration = (end - start)*1000
     for detection in detections:
         if detection.ClassID == 1:
             print("WE HAVE DETECTED A HUMAN")
             person.append(detection)
-    print("the amount of people detected in this frame: {} in {}".format(len(person), end - start))
-    
-    
+    print("the amount of people detected in this frame: {} in {}ms".format(len(person), duration))
+    print("FPS = {}".format(1000/duration))
+
+
     print("DONE \n\n\n\n\n\n")
-
-
-    
