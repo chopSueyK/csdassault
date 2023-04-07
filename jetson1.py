@@ -32,8 +32,8 @@ while display.IsStreaming():
     img = camera.Capture()
     detections = net.Detect(img)
     for detection in detections:
-        print(detection)#
-    display.Render(img)
+        print(detection) 
+    display.RenderOnce(img)
     display.SetStatus("Object Detection | Network {:.0f} FPS".format(net.GetNetworkFPS()))
     print("DONE \n\n\n\n\n\n")
 
