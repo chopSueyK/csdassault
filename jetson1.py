@@ -1,6 +1,8 @@
 import jetson.utils
 import jetson.inference
 import cv2
+import time
+
 
 
 #### REMARQUES
@@ -15,14 +17,19 @@ display = jetson.utils.glDisplay()
 camera = jetson.utils.videoSource("csi://0") 
 
 while True:
+    start = time.time()
+    print("hello")
+    
+    print(end - start)
     person = []
     img = camera.Capture()
     detections = net.Detect(img)
+    end = time.time()
     for detection in detections:
         if detection.ClassID == 1:
             print("WE HAVE DETECTED A HUMAN")
             person.append(detection)
-    print("the amount of people in this frame: {}".format(len(person)))
+    print("the amount of people detected in this frame: {} in {}".format(len(person), end - start))
     
     
     print("DONE \n\n\n\n\n\n")
