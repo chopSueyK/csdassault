@@ -1,4 +1,3 @@
-[MIT](https://choosealicense.com/licenses/mit/)
 ## Content
 
 The code responsible for VTOL drone automation + person-detection using TensorRT on a Jetson.
