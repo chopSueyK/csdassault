@@ -9,14 +9,15 @@ import time
 # if suddenly unable to access camera, it means another session using this same camera (hung or alive) 
 # reset the nvargus-daemon to reset the argus framework and try nvgstcapture-1.0 again.
 # 
-
 # jetson_inference has to be built with cmake -DENABLE_NVMM=off ../
-if __name__ == "__main__":
-    net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
-    display = jetson.utils.glDisplay()
-    #camera = jetson.utils.videoSource("csi://0") 
-    camera = jetson.utils.videoSource("footage.mp4")
 
+net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
+
+camera = jetson.utils.videoSource("csi://0") 
+#camera = jetson.utils.videoSource("footage.mp4")
+
+
+def execute():
     while True:
         start = time.time()
         print("hello")
@@ -34,3 +35,6 @@ if __name__ == "__main__":
 
 
         print("DONE \n\n\n\n\n\n")
+# jetson_inference has to be built with cmake -DENABLE_NVMM=off ../
+if __name__ == "__main__":
+    execute()
