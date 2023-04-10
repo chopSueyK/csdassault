@@ -1,8 +1,9 @@
-# Drone
+[MIT](https://choosealicense.com/licenses/mit/)
+## Content
 
 The code responsible for VTOL drone automation + person-detection using TensorRT on a Jetson.
 
-## Installation
+## Dependencies
 
 Follow installation tutorial here for TensorRT inference:
 https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md
