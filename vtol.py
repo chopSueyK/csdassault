@@ -3,13 +3,13 @@ import time
 import socket 
 from pymavlink import mavutil
 from threading import Thread
+import jetson1 as jp
 
 #for usb serial connection
 connection_string = "/dev/ttyACM0"
 
 #for ardupilot sitl connection
 connection_string = "tcp:127.0.0.1:5760"
-
 baud_rate = 57600
 vehicle = connect(connection_string, baud=baud_rate, wait_ready=True)
 
@@ -25,16 +25,13 @@ def arm_and_takeoff(TargetAltitude):
     while vehicle.mode != "GUIDED":
         print("Waiting for vehicle to enter GUIDED mode")
         time.sleep(1)
-
-    
+ 
     # Wait for GPS to become available
     while not vehicle.gps_0.fix_type:
         print('Waiting for GPS...')
 
     # Print the drone's latitude and longitude
-    latitude, longitude = vehicle.location.global_frame.lat, vehicle.location.global_frame.lon
-
-    print('Current GPS location: {0}, {1}'.format(latitude, vehicle.location.longitude))
+    print('Current GPS location: {0}, {1}'.format(vehicle.location.global_frame.lat, vehicle.location.global_frame.lon))
     
     # Define the mission
     mission_items = [
@@ -57,8 +54,10 @@ def arm_and_takeoff(TargetAltitude):
     vehicle.simple_takeoff(TargetAltitude)
 
     # Set the vehicle mode to AUTO
-    vehicle.mode = VehicleMode("AUTO")
-
+    #vehicle.mode = VehicleMode("AUTO")
+    
+    my_thread = Thread(target = jp.execute)
+    my_thread.start()
     # Monitor mission execution
     while True:
         nextwaypoint = vehicle.commands.next
