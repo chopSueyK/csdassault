@@ -1,10 +1,15 @@
 from dronekit import *
 import time 
 import socket 
-import exceptions
 from pymavlink import mavutil
+from threading import Thread
 
+#for usb serial connection
 connection_string = "/dev/ttyACM0"
+
+#for ardupilot sitl connection
+connection_string = "tcp:127.0.0.1:5760"
+
 baud_rate = 57600
 vehicle = connect(connection_string, baud=baud_rate, wait_ready=True)
 
@@ -21,6 +26,16 @@ def arm_and_takeoff(TargetAltitude):
         print("Waiting for vehicle to enter GUIDED mode")
         time.sleep(1)
 
+    
+    # Wait for GPS to become available
+    while not vehicle.gps_0.fix_type:
+        print('Waiting for GPS...')
+
+    # Print the drone's latitude and longitude
+    latitude, longitude = vehicle.location.global_frame.lat, vehicle.location.global_frame.lon
+
+    print('Current GPS location: {0}, {1}'.format(latitude, vehicle.location.longitude))
+    
     # Define the mission
     mission_items = [
                 mavutil.mavlink.MAVLink_mission_item_message(
