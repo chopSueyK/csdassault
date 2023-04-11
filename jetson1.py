@@ -11,7 +11,7 @@ import os
 # 
 # jetson_inference has to be built with cmake -DENABLE_NVMM=off ../
 
-net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
+net = jetson.inference.detectNet("ssd-mobilenet-v2", argv=["--log-level=error", f"--threshold=0.5"])
 
 camera = jetson.utils.videoSource("csi://0") 
 #camera = jetson.utils.videoSource("footage.mp4")

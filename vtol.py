@@ -4,16 +4,29 @@ import socket
 from pymavlink import mavutil
 from threading import Thread
 import jetson1 as jp
+import logging
 
-#for usb serial connection
-connection_string = "/dev/ttyACM0"
+# Enable dronekit logging
+logging.basicConfig(level=logging.DEBUG)
+def vehicle_connection():
+    #for usb serial connection
+    connection_string = "/dev/ttyACM0"
 
-#for ardupilot sitl connection
-connection_string = "tcp:127.0.0.1:5760"
-baud_rate = 57600
-vehicle = connect(connection_string, baud=baud_rate, wait_ready=True)
+    #for ardupilot sitl connection
+    connection_string = "tcp:127.0.0.1:5760"
+    baud_rate = 57600
+    try:
+        vehicle = connect(connection_string, baud=baud_rate, wait_ready=True)
+        logging.info("Connecting to vehicle on: " + connection_string)
+        return vehicle
+    except Exception as e:
+        logging.error("Error connecting: %s", e)
+        return None
 
 def arm_and_takeoff(TargetAltitude):
+
+    vehicle = vehicle_connection()
+
     #Arm vehicle once GUIDED mode is confirmed
     vehicle.armed = True
     while vehicle.armed == False:
