@@ -1,6 +1,6 @@
 ## Content
 
-The code responsible for VTOL drone automation + person-detection using TensorRT on a Jetson.
+The code responsible for VTOL drone automation + person-detection using TensorRT on a Jetson Nano.
 
 ## Dependencies
 
