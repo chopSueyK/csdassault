@@ -20,7 +20,8 @@ def vehicle_connection():
         logging.info("Connecting to vehicle on: " + connection_string)
         return vehicle
     except Exception as e:
-        logging.error("Error connecting: %s", e)
+        logging.error("Error connecting to vehicle on id: %s", connection_string)
+        logging.error(e)
         return None
 
 def arm_and_takeoff(TargetAltitude):
