@@ -11,7 +11,7 @@ https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md
 
 ```bash
 sudo apt-get install cmake python3-dev python3-setuptools libxml2-dev libxslt-dev python-dev 
-pip install cython
+pip install cython imagezmq 
 pip install dronekit 
 ```
 
